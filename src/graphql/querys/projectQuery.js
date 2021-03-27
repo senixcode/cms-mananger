@@ -8,3 +8,12 @@ export const GET_PROJECTS = gql`
     }
   }
 `;
+
+export const GET_PROJECTS_LANGUAGE = gql`
+  ${PROJECT_FIELDS}
+  query finByLanguage($language: Language = ES) {
+    projectFinByLanguage(language: $language) {
+      ...project_data
+    }
+  }
+`;
