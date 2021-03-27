@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { ListAllPage } from "./pages/listAll.page";
+import { HomePage } from "./pages/home.page";
 import { ProjectManangerPage } from "./pages/project.page";
 
 export function Router({ children }) {
@@ -8,7 +8,7 @@ export function Router({ children }) {
       {children}
       <div className="container p4">
         <Switch>
-          <Route exact path="/" component={ListAllPage} />
+          <Route exact path="/" component={HomePage} />
           <Route
             exact
             path="/mananger-project"
