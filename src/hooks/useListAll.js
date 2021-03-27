@@ -1,61 +1,75 @@
-import { GET_ABOUTME } from "../graphql/querys/aboutMeQuery";
-import { GET_LINKS } from "../graphql/querys/linksQuerys";
-import { GET_PROJECTS } from "../graphql/querys/projectQuery";
-import { GET_ROUTES } from "../graphql/querys/routesQuery";
-import { GET_TOPICS } from "../graphql/querys/topicsQuery";
-import { useQuery } from "@apollo/react-hooks";
+import { useQueryListAll } from "./useQueryListAll";
+import {
+  fieldLanguage,
+  fieldsAboutMe,
+  fieldsLinks,
+  fieldsProjects,
+  fieldsRoutes,
+  fieldsTopics,
+} from "../componentes/helpers/fieldsCardsHome";
+import { useEffect, useState } from "react";
 
 export const useListAll = () => {
   const {
-    loading: loadingAboutme,
-    error: errorAboutme,
-    data: dataAboutMe,
-  } = useQuery(GET_ABOUTME);
-  const {
-    loading: loadingProjects,
-    error: errorProjects,
-    data: dataProjects,
-  } = useQuery(GET_PROJECTS);
+    loading,
+    error,
+    aboutMeQueryResult,
+    projectsQueryResult,
+    topicsQueryResult,
+    linksQueryResult,
+    routesQueryResult,
+  } = useQueryListAll();
+  const [listFilters, setListFilters] = useState([]);
 
-  const {
-    loading: loadingTopics,
-    error: errorTopics,
-    data: dataTopics,
-  } = useQuery(GET_TOPICS);
-
-  const {
-    loading: loadingLinks,
-    error: errorLinks,
-    data: dataLinks,
-  } = useQuery(GET_LINKS);
-
-  const {
-    loading: loadingRoutes,
-    error: errorRoutes,
-    data: dataRoutes,
-  } = useQuery(GET_ROUTES);
-
-  let loadingAll = false;
-  let errorAll = false;
-
-  if (
-    loadingAboutme ||
-    loadingProjects ||
-    loadingTopics ||
-    loadingLinks ||
-    loadingRoutes
-  )
-    loadingAll = true;
-  if (errorAboutme || errorProjects || errorTopics || errorLinks || errorRoutes)
-    errorAll = true;
+  useEffect(() => {
+    console.log(loading, error);
+    if (loading === false && error === false) {
+      setListFilters([
+        {
+          name: "Aboutme",
+          items: aboutMeQueryResult.data.allAboutMe,
+          fields: { ...fieldsAboutMe, ...fieldLanguage },
+          shown: true,
+        },
+        {
+          name: "Project",
+          items: projectsQueryResult.data.projects,
+          fields: { ...fieldsProjects, ...fieldLanguage },
+          shown: true,
+        },
+        {
+          name: "Topic",
+          items: topicsQueryResult.data.topics,
+          fields: fieldsTopics,
+          shown: true,
+        },
+        {
+          name: "Link",
+          items: linksQueryResult.data.links,
+          fields: fieldsLinks,
+          shown: true,
+        },
+        {
+          name: "Route",
+          items: routesQueryResult.data.routes,
+          fields: { ...fieldsRoutes, ...fieldLanguage },
+          shown: true,
+        },
+      ]);
+    }
+  }, [
+    loading,
+    error,
+    aboutMeQueryResult.data,
+    projectsQueryResult.data,
+    topicsQueryResult.data,
+    linksQueryResult.data,
+    routesQueryResult.data,
+  ]);
 
   return {
-    dataAboutMe,
-    dataProjects,
-    dataTopics,
-    dataLinks,
-    dataRoutes,
-    loadingAll,
-    errorAll,
+    error,
+    loading,
+    listFilters,
   };
 };
