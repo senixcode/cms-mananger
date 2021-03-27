@@ -8,7 +8,7 @@ export const HomePage = () => {
   return (
     <>
       <Filters filters={filters} handleChangeFilter={handleChangeFilter} />
-      <ListFilters />
+      <ListFilters filters={filters} />
     </>
   );
 };

@@ -9,7 +9,7 @@ import {
 } from "../helpers/fieldsCardsHome";
 import { Cards } from "./Cards";
 
-export const ListFilters = () => {
+export const ListFilters = ({ filters }) => {
   const {
     dataAboutMe,
     dataLinks,
