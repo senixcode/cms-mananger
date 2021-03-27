@@ -28,8 +28,9 @@ export const fieldsLinks = {
   subtitle: "__typename",
   description: "href",
   links: false,
-   language: "icon",
+  language: "icon",
 };
+
 export const fieldsRoutes = {
   title: "title",
   subtitle: "__typename",
