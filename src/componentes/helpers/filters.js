@@ -1,10 +1,19 @@
+export const ABOUTME = "Aboutme ",
+  PROJECT = "Project ",
+  TOPIC = "Topic",
+  LINK = "Link ",
+  ROUTE = "Route ",
+  EN = "EN",
+  ES = "ES";
+
 export const FILTER_DEFAULT = [
-  { name: "About Me", checked: true },
-  { name: "Projects", checked: true },
-  { name: "Links", checked: true },
-  { name: "Routes", checked: true },
-  { name: "EN", checked: true },
-  { name: "ES", checked: true },
+  { name: ABOUTME, checked: true },
+  { name: PROJECT, checked: true },
+  { name: TOPIC, checked: true },
+  { name: LINK, checked: true },
+  { name: ROUTE, checked: true },
+  { name: EN, checked: true },
+  { name: ES, checked: true },
 ];
 
 export const FILTERS = "filters";

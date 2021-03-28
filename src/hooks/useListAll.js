@@ -8,6 +8,13 @@ import {
   fieldsTopics,
 } from "../componentes/helpers/fieldsCardsHome";
 import { useEffect, useState } from "react";
+import {
+  ABOUTME,
+  LINK,
+  PROJECT,
+  ROUTE,
+  TOPIC,
+} from "../componentes/helpers/filters";
 
 export const useListAll = () => {
   const {
@@ -22,35 +29,34 @@ export const useListAll = () => {
   const [listFilters, setListFilters] = useState([]);
 
   useEffect(() => {
-    console.log(loading, error);
     if (loading === false && error === false) {
       setListFilters([
         {
-          name: "Aboutme",
+          name: ABOUTME,
           items: aboutMeQueryResult.data.allAboutMe,
           fields: { ...fieldsAboutMe, ...fieldLanguage },
           shown: true,
         },
         {
-          name: "Project",
+          name: PROJECT,
           items: projectsQueryResult.data.projects,
           fields: { ...fieldsProjects, ...fieldLanguage },
           shown: true,
         },
         {
-          name: "Topic",
+          name: TOPIC,
           items: topicsQueryResult.data.topics,
           fields: fieldsTopics,
           shown: true,
         },
         {
-          name: "Link",
+          name: LINK,
           items: linksQueryResult.data.links,
           fields: fieldsLinks,
           shown: true,
         },
         {
-          name: "Route",
+          name: ROUTE,
           items: routesQueryResult.data.routes,
           fields: { ...fieldsRoutes, ...fieldLanguage },
           shown: true,
@@ -71,5 +77,6 @@ export const useListAll = () => {
     error,
     loading,
     listFilters,
+    setListFilters
   };
 };
