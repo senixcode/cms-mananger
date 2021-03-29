@@ -10,6 +10,8 @@ import {
 import { useEffect, useState } from "react";
 import {
   ABOUTME,
+  EN,
+  ES,
   LINK,
   PROJECT,
   ROUTE,
@@ -18,6 +20,13 @@ import {
 import { filterByStatus } from "../componentes/helpers/filterByStatus";
 
 export const useListAll = (filters) => {
+  let cloneFilters = [...filters];
+  let selectLanguage = null;
+  let languages = cloneFilters.filter((f) => [EN, ES].includes(f.name) && f);
+  if (languages[0].checked !== languages[1].checked) {
+    selectLanguage = languages.filter((l) => l.checked === true)[0].name;
+  }
+
   const {
     loading,
     error,
@@ -26,11 +35,20 @@ export const useListAll = (filters) => {
     topicsQueryResult,
     linksQueryResult,
     routesQueryResult,
-  } = useQueryListAll();
+  } = useQueryListAll(selectLanguage);
   const [listFilters, setListFilters] = useState([]);
 
   useEffect(() => {
-    if (loading === false && error === false && filters) {
+    if (
+      loading === false &&
+      error === false &&
+      filters &&
+      aboutMeQueryResult.data &&
+      projectsQueryResult.data &&
+      topicsQueryResult.data &&
+      linksQueryResult.data &&
+      routesQueryResult.data
+    ) {
       let newListFilters = [];
       filters.forEach((filter) => {
         switch (filter.name) {
@@ -78,9 +96,7 @@ export const useListAll = (filters) => {
             break;
         }
       });
-      //newListFilters = newListFilters.filter(l => l.shown === true)
       newListFilters = filterByStatus(newListFilters, "shown", true);
-      console.log(newListFilters);
       setListFilters(newListFilters);
     }
   }, [
