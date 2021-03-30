@@ -1,0 +1,1 @@
+export const isNotEmptyArray = (items) => items && items.length > 0;
