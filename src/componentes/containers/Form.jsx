@@ -1,33 +1,38 @@
 import { useRef } from "react";
+import { isNotEmptyArray } from "../helpers/isNotEmptyArray";
+import { InputSwitch } from "../molecules/InputSwitch";
 
-export const Form = () => {
+export const Form = ({ inputs }) => {
   const formRef = useRef();
 
   const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log(formRef.current.name.value);
-      console.log(formRef.current.language.value);
-      formRef.current.reset();
+    e.preventDefault();
+    inputs.map((input) =>
+      console.log({ [input.name]: formRef.current[input.name].value })
+    );
+    formRef.current.reset();
   };
 
   return (
     <form className="w-4" ref={formRef}>
-      <div className="mb-3">
-        <textarea className="form-control" name="name" placeholder="name" />
-      </div>
-      <div className="mb-3">
-        <select
-          className="form-control"
-          placeholder="language"
-          name="language"
-        >
-          <option value="EN">en</option>
-          <option value="ES">es</option>
-        </select>
-      </div>
+      <Inputs elements={inputs} />
       <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
         Save
       </button>
     </form>
   );
 };
+
+const Inputs = ({ elements }) => (
+  <>
+    {isNotEmptyArray(elements) ? (
+      elements.map((element, i) => (
+        <div key={i} className="mb-3">
+          <InputSwitch element={element} />
+        </div>
+      ))
+    ) : (
+      <p>Error element form</p>
+    )}
+  </>
+);
