@@ -23,6 +23,9 @@ export const Navigation = () => (
           <Link className="nav-link active" aria-current="page" to="/">
             Home
           </Link>
+          <Link className="nav-link" to="/mananger-aboutme">
+            AboutMe
+          </Link>
           <Link className="nav-link" to="/mananger-project">
             Project
           </Link>
