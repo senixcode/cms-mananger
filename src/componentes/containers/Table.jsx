@@ -1,3 +1,5 @@
+import { isNotEmptyArray } from "../helpers/isNotEmptyArray";
+
 export const Table = ({ items }) => (
   <table className="table mt-3">
     <thead>
@@ -10,7 +12,6 @@ export const Table = ({ items }) => (
     </tbody>
   </table>
 );
-const isNotEmptyArray = (items) => items && items.length > 0;
 const forEachObject = (object, f) =>
   Object.keys(object).map((key, index) => f(key, index));
 
