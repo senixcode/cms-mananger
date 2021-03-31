@@ -1,9 +1,11 @@
-import { useQuery } from "@apollo/react-hooks";
 import { ManangerTemplate } from "../componentes/template/Mananger";
 import { GET_ABOUTME } from "../graphql/querys/aboutMeQuery";
+import { ADD_ABOUTME } from "../graphql/mutation/aboutMeMutation";
+import { useManangerPage } from "../hooks/useManangerPage";
+
 const title = "AboutMe Mananger";
 
-const formExample = [
+const form = [
   { type: "textarea", name: "name" },
   {
     type: "select",
@@ -15,19 +17,21 @@ const formExample = [
   },
 ];
 
+const get = { 
+  query:GET_ABOUTME, variables:{param:null}
+}
+
 export const AboutMeManangerPage = () => {
-  const { error, loading, data } = useQuery(GET_ABOUTME, PARAM);
+  const {error, loading, data, handleSubmit} = useManangerPage(form,get,ADD_ABOUTME)
   if (error) return <p>Error get aboutme graphql</p>;
   if (loading) return <p>Loading aboutme graphql...</p>;
+
   return (
     <ManangerTemplate
       title={title}
-      form={formExample}
+      form={{ inputs: [...form], handleSubmit }}
       table={data.allAboutMe}
     />
   );
 };
 
-const PARAM = {
-  variables: { param: null },
-};
