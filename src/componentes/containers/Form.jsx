@@ -5,7 +5,6 @@ import { InputSwitch } from "../molecules/InputSwitch";
 export const Form = ({ inputs,handleSubmit }) => {
   const formRef = useRef();
 
-
   return (
     <form className="w-4" ref={formRef}>
       <Inputs elements={inputs} />
