@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { forEachFormRef } from "../componentes/containers/Form";
-
+// mananger form, table and actions crud
 export const useManangerPage = (form, get, add) => {
   const { query, variables } = get;
   const { error, loading, data } = useQuery(query, { variables });
-  const [createAboutme] = useMutation(add, {
+  const [create] = useMutation(add, {
     //automatic refresh
     refetchQueries: [{ query, variables }],
     awaitRefetchQueries: true,
@@ -16,7 +16,7 @@ export const useManangerPage = (form, get, add) => {
     // parse and get -> parameters for sending
     forEachFormRef(form, formRef, (key, value) => (input[key] = value));
     //save
-    createAboutme({ variables: { input } });
+    create({ variables: { input } });
     //clear form
     formRef.current.reset();
   };
