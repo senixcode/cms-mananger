@@ -1,8 +1,8 @@
-import { Form } from "../componentes/containers/Form";
-import { Table } from "../componentes/containers/Table";
+import { ManangerTemplate } from "../componentes/template/Mananger";
+const title = "AboutMe Mananger";
+
 const formExample = [
   { type: "textarea", name: "name" },
-  //{ type: "textarea", name: "test" },
   {
     type: "select",
     name: "language",
@@ -14,17 +14,14 @@ const formExample = [
 ];
 
 const dataExample = [
-  { name: "test", language: "en" },
-  { name: "prueba", language: "es" },
-  //{ name: "prueba", language: "es" },
+  { id:1, name: "test", language: "en" },
+  { id:2, name: "prueba", language: "es" },
 ];
 
 export const AboutMeManangerPage = () => (
-  <div className="card mt-3">
-    <div className="card-header">AboutMe Mananger</div>
-    <div className="card-body">
-      <Form inputs={formExample} />
-      <Table items={dataExample} />
-    </div>
-  </div>
+  <ManangerTemplate 
+    title={title} 
+    form={formExample} 
+    table={dataExample} 
+  />
 );
