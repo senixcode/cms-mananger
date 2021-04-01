@@ -1,14 +1,27 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { forEachObject } from "../helpers/forEachObject";
 import { isNotEmptyArray } from "../helpers/isNotEmptyArray";
 import { InputSwitch } from "../molecules/InputSwitch";
 
-export const Form = ({ inputs,handleSubmit }) => {
+export const Form = ({ inputs, handleSubmit, edit, setEdit }) => {
   const formRef = useRef();
-
+  useEffect(() => {
+    if (edit.state) {
+      forEachObject(
+        edit.data,
+        (key) => (formRef.current[key].value = edit.data[key])
+      );
+      setEdit({ state: false, ...edit.data});
+    }
+  }, [edit, setEdit]);
   return (
     <form className="w-4" ref={formRef}>
       <Inputs elements={inputs} />
-      <button type="submit" className="btn btn-primary" onClick={(e) => handleSubmit(e,formRef)}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={(e) => handleSubmit(e, formRef)}
+      >
         Save
       </button>
     </form>
