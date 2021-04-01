@@ -4,7 +4,7 @@ import { forEachFormRef } from "../componentes/containers/Form";
 export const useManangerPage = (form, get, add) => {
   const { query, variables } = get;
   const { error, loading, data } = useQuery(query, { variables });
-  const [create] = useMutation(add, {
+  const [save] = useMutation(add, {
     //automatic refresh
     refetchQueries: [{ query, variables }],
     awaitRefetchQueries: true,
@@ -15,12 +15,11 @@ export const useManangerPage = (form, get, add) => {
     let input = {};
     // parse and get -> parameters for sending
     forEachFormRef(form, formRef, (key, value) => (input[key] = value));
-    //save
-    create({ variables: { input } });
+    save({ variables: { input } });
     //clear form
     formRef.current.reset();
   };
-
+ 
   return {
     error,
     loading,
