@@ -1,7 +1,7 @@
 import { forEachObject } from "../helpers/forEachObject";
 import { isNotEmptyArray } from "../helpers/isNotEmptyArray";
 
-export const Table = ({ items, handleEdit }) => (
+export const Table = ({ items, handleEdit, handleDelete }) => (
   <table className="table mt-3 text-center">
     <thead>
       <tr>
@@ -9,7 +9,7 @@ export const Table = ({ items, handleEdit }) => (
       </tr>
     </thead>
     <tbody>
-      <Body items={items} handleEdit={handleEdit}/>
+      <Body items={items} handleEdit={handleEdit} handleDelete={handleDelete} />
     </tbody>
   </table>
 );
@@ -31,8 +31,7 @@ const Header = ({ items }) => (
   </>
 );
 
-const Body = ({ items, handleEdit }) => {
-
+const Body = ({ items, handleEdit, handleDelete }) => {
   const Rows = ({ items }) => (
     <>
       {items.map((row, index) => (
@@ -43,7 +42,7 @@ const Body = ({ items, handleEdit }) => {
       ))}
     </>
   );
-  
+
   const Row = ({ columns, row }) => (
     <>
       {forEachObject(columns, (key, i) => (
@@ -51,21 +50,33 @@ const Body = ({ items, handleEdit }) => {
       ))}
     </>
   );
-  
-  const Optiones = ({row}) => (
+
+  const Optiones = ({ row }) => (
     <td>
-      <button type="button" className="btn btn-warning mr-2" onClick={() => handleEdit(row)}  >
+      <button
+        type="button"
+        className="btn btn-warning mr-2"
+        onClick={() => handleEdit(row)}
+      >
         Edit
       </button>
-      <button type="button" className="btn btn-danger">
+      <button
+        type="button"
+        className="btn btn-danger"
+        onClick={() => handleDelete(row)}
+      >
         Delete
       </button>
     </td>
   );
 
-  return(
-  <>
-    {isNotEmptyArray(items) ? <Rows items={items} /> : <p> Error table body</p>}
-  </>
-)};
-
+  return (
+    <>
+      {isNotEmptyArray(items) ? (
+        <Rows items={items} />
+      ) : (
+        <p> Error table body</p>
+      )}
+    </>
+  );
+};
