@@ -1,6 +1,6 @@
 import { ManangerTemplate } from "../componentes/template/Mananger";
 import { GET_ABOUTME } from "../graphql/querys/aboutMeQuery";
-import { ADD_ABOUTME } from "../graphql/mutation/aboutMeMutation";
+import { ADD_ABOUTME, UPDATE_ABOUTME } from "../graphql/mutation/aboutMeMutation";
 import { useManangerPage } from "../hooks/useManangerPage";
 import { useState } from "react";
 
@@ -27,7 +27,8 @@ export const AboutMeManangerPage = () => {
   const { error, loading, data, handleSubmit } = useManangerPage(
     form,
     get,
-    ADD_ABOUTME
+    ADD_ABOUTME,
+    UPDATE_ABOUTME
   );
   const [edit, setEdit] = useState({
     state: false,
@@ -36,10 +37,10 @@ export const AboutMeManangerPage = () => {
   if (error) return <p>Error get aboutme graphql</p>;
   if (loading) return <p>Loading aboutme graphql...</p>;
   const handleEdit = (row) => {
-    const {name, language} = row
+    const { __typename, ...data } = row;
     setEdit({
       state: true,
-      data: {name,language}
+      data,
     });
   };
   return (
