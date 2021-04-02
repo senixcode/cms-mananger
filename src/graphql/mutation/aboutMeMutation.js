@@ -16,3 +16,11 @@ export const UPDATE_ABOUTME = gql`
     }
   }
 `;
+
+export const DELETE_ABOUTME = gql`
+  mutation delete($id: Int!) {
+    removeAboutme(id: $id) {
+      id
+    }
+  }
+`;
