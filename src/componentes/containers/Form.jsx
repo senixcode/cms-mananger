@@ -11,16 +11,15 @@ export const Form = ({ inputs, handleSubmit, edit, setEdit }) => {
         edit.data,
         (key) => (formRef.current[key].value = edit.data[key])
       );
-      setEdit({ state: false, ...edit.data});
     }
   }, [edit, setEdit]);
   return (
     <form className="w-4" ref={formRef}>
-      <Inputs elements={inputs} />
+      <Inputs elements={inputs} edit={edit.state} />
       <button
         type="submit"
         className="btn btn-primary"
-        onClick={(e) => handleSubmit(e, formRef)}
+        onClick={(e) => handleSubmit(e, formRef, edit, setEdit)}
       >
         Save
       </button>
@@ -28,14 +27,17 @@ export const Form = ({ inputs, handleSubmit, edit, setEdit }) => {
   );
 };
 
-const Inputs = ({ elements }) => (
+const Inputs = ({ elements, edit }) => (
   <>
     {isNotEmptyArray(elements) ? (
-      elements.map((element, i) => (
-        <div key={i} className="mb-3">
-          <InputSwitch element={element} />
-        </div>
-      ))
+      <>
+        {edit && <input type="hidden" name="id" />}
+        {elements.map((element, i) => (
+          <div key={i} className="mb-3">
+            <InputSwitch element={element} />
+          </div>
+        ))}
+      </>
     ) : (
       <p>Error element form</p>
     )}
