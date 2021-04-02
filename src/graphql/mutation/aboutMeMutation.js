@@ -8,3 +8,11 @@ export const ADD_ABOUTME = gql`
     }
   }
 `;
+
+export const UPDATE_ABOUTME = gql`
+  mutation update($input: UpdateAboutmeInput!) {
+    updateAboutme(updateAboutmeInput: $input) {
+      id
+    }
+  }
+`;
