@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { routesPages } from "../../routesPages";
+import { Logo } from "../atoms/Logo";
 
 export const Navigation = () => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">
-        <img src="https://www.senixcode.dev/static/my-logo-senixcode.svg" alt="" width="30" height="24"></img> 
+       <Logo/>
       </Link>
       <button
         className="navbar-toggler"
@@ -20,15 +22,11 @@ export const Navigation = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <Link className="nav-link active" aria-current="page" to="/">
-            Home
-          </Link>
-          <Link className="nav-link" to="/mananger-aboutme">
-            AboutMe
-          </Link>
-          <Link className="nav-link" to="/mananger-project">
-            Project
-          </Link>
+          {routesPages.map((route) => (
+            <Link activeClassName="active" className="nav-link" to={route.path}>
+              {route.name}
+            </Link>
+          ))}
         </div>
       </div>
     </div>
