@@ -14,8 +14,8 @@ export function Router({ children }) {
 
 const SwitchRoutes = () => (
   <Switch>
-    {routesPages.map((route) => (
-      <Route exact path={route.path} component={route.component} />
+    {routesPages.map((route, i) => (
+      <Route key={i} exact path={route.path} component={route.component} />
     ))}
   </Switch>
 );

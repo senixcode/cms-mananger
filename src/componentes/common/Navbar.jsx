@@ -22,8 +22,8 @@ export const Navigation = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          {routesPages.map((route) => (
-            <Link activeClassName="active" className="nav-link" to={route.path}>
+          {routesPages.map((route, i) => (
+            <Link key={i} activeclassname="active" className="nav-link" to={route.path}>
               {route.name}
             </Link>
           ))}
