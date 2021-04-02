@@ -3,13 +3,14 @@ import { GET_ABOUTME } from "../graphql/querys/aboutMeQuery";
 import { ADD_ABOUTME, DELETE_ABOUTME, UPDATE_ABOUTME } from "../graphql/mutation/aboutMeMutation";
 import { useManangerPage } from "../hooks/useManangerPage";
 import { useState } from "react";
+import { types } from "../componentes/molecules/InputSwitch";
 
 const title = "AboutMe Mananger";
 
 const form = [
-  { type: "textarea", name: "name" },
+  { type: types.TEXTAREA, name: "name" },
   {
-    type: "select",
+    type: types.SELECT,
     name: "language",
     options: [
       { value: "EN", name: "en" },
