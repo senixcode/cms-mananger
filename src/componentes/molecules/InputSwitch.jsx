@@ -2,7 +2,16 @@ import { Select } from "../atoms/Select";
 
 export const InputSwitch = ({ element }) => {
   switch (element.type) {
-    case "textarea":
+    case types.TEXT:
+      return (
+        <input
+          type="text"
+          className="form-control"
+          name={element.name}
+          placeholder={element.name}
+        />
+      );
+    case types.TEXTAREA:
       return (
         <textarea
           className="form-control"
@@ -10,9 +19,15 @@ export const InputSwitch = ({ element }) => {
           placeholder={element.name}
         />
       );
-    case "select":
+    case types.SELECT:
       return <Select name={element.name} options={element.options} />;
     default:
       break;
   }
 };
+
+export const types = {
+  TEXT:"text",
+  TEXTAREA:"textarea",
+  SELECT:"select",
+}
