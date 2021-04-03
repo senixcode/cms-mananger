@@ -2,7 +2,12 @@ import { ManangerTemplate } from "../componentes/template/Mananger";
 import { useManangerPage } from "../hooks/useManangerPage";
 import { types } from "../componentes/molecules/InputSwitch";
 import { GET_PROJECTS_TEST } from "../graphql/querys/projectQuery";
-import { ADD_PROJECT, DELETE_PROJECT, UPDATE_PROJECT } from "../graphql/mutation/projectMutation";
+import {
+  ADD_PROJECT,
+  DELETE_PROJECT,
+  UPDATE_PROJECT,
+} from "../graphql/mutation/projectMutation";
+import { Loading } from "../componentes/atoms/Loading";
 
 const title = "Project Mananger";
 
@@ -37,11 +42,8 @@ export const ProjectManangerPage = () => {
     edit,
     setEdit,
   } = useManangerPage(form, get, ADD_PROJECT, UPDATE_PROJECT, DELETE_PROJECT);
-
-  if (error) {
-    console.log(error);
-    return <p>Error get project graphql</p>};
-  if (loading) return <p>Loading project graphql...</p>;
+  if (error) return <p>Error get project graphql</p>;
+  if (loading) return <Loading />;
   return (
     <ManangerTemplate
       title={title}
