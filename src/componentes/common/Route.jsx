@@ -5,7 +5,7 @@ export function Router({ children }) {
   return (
     <BrowserRouter>
       {children}
-      <div className="container p3">
+      <div className="container-md">
         <SwitchRoutes />
       </div>
     </BrowserRouter>
