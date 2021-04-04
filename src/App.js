@@ -1,6 +1,6 @@
 import { Router } from "./componentes/common/Route";
 import { Navigation } from "./componentes/common/Navbar";
-import "bootswatch/dist/darkly//bootstrap.min.css";
+import "bootswatch/dist/lux/bootstrap.min.css";
 function App() {
   return (
     <Router>
