@@ -21,6 +21,8 @@ export const InputSwitch = ({ element }) => {
       );
     case types.SELECT:
       return <Select name={element.name} options={element.options} />;
+    // case types.MULTISELEC:
+    //   return <Select name={element.name} options={element.options} />;
     default:
       break;
   }
@@ -30,4 +32,5 @@ export const types = {
   TEXT:"text",
   TEXTAREA:"textarea",
   SELECT:"select",
+  // MULTISELEC:"multiselect"
 }
