@@ -9,3 +9,11 @@ export const GET_LINKS = gql`
     }
   }
 `;
+export const GET_LINKS_SELECT = gql`
+  {
+    links {
+      value: id
+      label: href
+    }
+  }
+`;
