@@ -7,3 +7,11 @@ export const GET_TOPICS = gql`
     }
   }
 `;
+export const GET_TOPICS_SELECT = gql`
+  {
+    topics {
+      value: id
+      label: name
+    }
+  }
+`;
