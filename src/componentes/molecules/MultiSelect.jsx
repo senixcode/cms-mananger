@@ -1,6 +1,6 @@
 import Select from 'react-select';
 
-export const MultiSelect = ({data, state}) => {
+export const MultiSelect = ({name, data, state}) => {
     const {selectedValue, setSelectedValue} = state
   // set value for default selection
   // handle onChange event of the dropdown
@@ -11,10 +11,11 @@ export const MultiSelect = ({data, state}) => {
   return (
       <Select
         className="dropdown"
-        placeholder="Select Option"
+        placeholder={`Select ${name}`}
         value={data.filter((obj) => selectedValue.includes(obj.value))} // set selected values
         options={data} // set list of the data
         onChange={handleChange} // assign onChange function
+        name={name}
         isMulti
         isClearable
       />
