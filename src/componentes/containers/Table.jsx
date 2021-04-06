@@ -1,28 +1,37 @@
 import { forEachObject } from "../helpers/forEachObject";
 import { isNotEmptyArray } from "../helpers/isNotEmptyArray";
 
-export const Table = ({ items, handleEdit, handleDelete }) => (
+export const Table = ({ items, handleEdit, handleDelete, hideItems = ["__typename"] }) => (
   <table className="table mt-3 text-center">
     <thead>
       <tr>
-        <Header items={items} />
+        <Header items={items} hideItems={hideItems} />
       </tr>
     </thead>
     <tbody>
-      <Body items={items} handleEdit={handleEdit} handleDelete={handleDelete} />
+      <Body
+        items={items}
+        hideItems={hideItems}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
     </tbody>
   </table>
 );
 
-const Header = ({ items }) => (
+const Header = ({ items, hideItems }) => (
   <>
     {isNotEmptyArray(items) ? (
       <>
-        {forEachObject(items[0], (key, index) => (
-          <th key={index} scope="col">
-            {key}
-          </th>
-        ))}
+        {forEachObject(
+          items[0],
+          (key, index) =>
+            !hideItems.includes(key) && (
+              <th key={index} scope="col">
+                {key}
+              </th>
+            )
+        )}
         <th scope="col">options</th>
       </>
     ) : (
@@ -31,7 +40,7 @@ const Header = ({ items }) => (
   </>
 );
 
-const Body = ({ items, handleEdit, handleDelete }) => {
+const Body = ({ items, hideItems, handleEdit, handleDelete }) => {
   const Rows = ({ items }) => (
     <>
       {items.map((row, index) => (
@@ -45,9 +54,10 @@ const Body = ({ items, handleEdit, handleDelete }) => {
 
   const Row = ({ columns, row }) => (
     <>
-      {forEachObject(columns, (key, i) => (
-        <td key={i}>{row[key]}</td>
-      ))}
+      {forEachObject(
+        columns,
+        (key, i) => !hideItems.includes(key) && <td key={i}>{row[key]}</td>
+      )}
     </>
   );
 
@@ -55,14 +65,14 @@ const Body = ({ items, handleEdit, handleDelete }) => {
     <td>
       <button
         type="button"
-        className="btn btn-warning mr-2"
+        className="btn btn-warning btn-sm mr-2"
         onClick={() => handleEdit(row)}
       >
         Edit
       </button>
       <button
         type="button"
-        className="btn btn-danger"
+        className="btn btn-danger btn-sm"
         onClick={() => handleDelete(row)}
       >
         Delete
