@@ -39,6 +39,11 @@ export const ProjectManangerPage = () => {
   const getLinks = useQuery(GET_LINKS_SELECT);
   const [selectedTopicValue, setSelectedTopicValue] = useState([]);
   const [selectedLinkValue, setSelectedLinkValue] = useState([]);
+  const editMultiSelectiones = (row) => {
+    setSelectedTopicValue(JSON.parse(row.topics));
+    setSelectedLinkValue(JSON.parse(row.links));
+  };
+
   const {
     error,
     loading,
@@ -48,7 +53,14 @@ export const ProjectManangerPage = () => {
     handleDelete,
     edit,
     setEdit,
-  } = useManangerPage(form, get, ADD_PROJECT, UPDATE_PROJECT, DELETE_PROJECT);
+  } = useManangerPage(
+    form,
+    get,
+    ADD_PROJECT,
+    UPDATE_PROJECT,
+    DELETE_PROJECT,
+    editMultiSelectiones
+  );
   const selectTopic = !getTopics.loading &&
     !getTopics.error && {
       type: types.MULTISELEC,
@@ -59,6 +71,7 @@ export const ProjectManangerPage = () => {
         setSelectedValue: setSelectedTopicValue,
       },
     };
+
   const selectLink = !getLinks.loading &&
     !getLinks.error && {
       type: types.MULTISELEC,
@@ -70,8 +83,14 @@ export const ProjectManangerPage = () => {
       },
     };
 
+  const SaveAddMultiSelectiones = () => ({
+    topics: JSON.stringify(selectedTopicValue),
+    links: JSON.stringify(selectedLinkValue),
+  });
+
   if (error) return <p>Error get project graphql</p>;
   if (loading) return <Loading />;
+console.log("projects",data.projects);
   return (
     <ManangerTemplate
       title={title}
@@ -80,6 +99,7 @@ export const ProjectManangerPage = () => {
         edit,
         setEdit,
         handleSubmit,
+        SaveAddMultiSelectiones,
       }}
       table={{ items: [...data.projects], handleEdit, handleDelete }}
     />
