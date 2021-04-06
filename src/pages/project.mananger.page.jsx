@@ -33,13 +33,7 @@ const get = {
   query: GET_PROJECTS_TEST,
   variables: {},
 };
-const hideItems = [
-  "description",
-  "titleSeo",
-  "topics",
-  "__typename",
-  "links",
-]
+const hideItems = ["description", "titleSeo", "topics", "__typename", "links"];
 export const ProjectManangerPage = () => {
   const getTopics = useQuery(GET_TOPICS_SELECT);
   const getLinks = useQuery(GET_LINKS_SELECT);
@@ -60,7 +54,7 @@ export const ProjectManangerPage = () => {
     edit,
     setEdit,
   } = useManangerPage(
-    form,
+    [...form, selecteLanguage],
     get,
     ADD_PROJECT,
     UPDATE_PROJECT,
