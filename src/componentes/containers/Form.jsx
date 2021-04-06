@@ -3,7 +3,7 @@ import { forEachObject } from "../helpers/forEachObject";
 import { isNotEmptyArray } from "../helpers/isNotEmptyArray";
 import { InputSwitch } from "../molecules/InputSwitch";
 
-export const Form = ({ inputs, handleSubmit, edit, setEdit, SaveAddMultiSelectiones }) => {
+export const Form = ({ inputs, handleSubmit, edit, setEdit }) => {
   const formRef = useRef();
   useEffect(() => {
     if (edit.state) {
@@ -19,7 +19,7 @@ export const Form = ({ inputs, handleSubmit, edit, setEdit, SaveAddMultiSelectio
       <button
         type="submit"
         className="btn btn-primary"
-        onClick={(e) => handleSubmit(e, formRef, edit, setEdit, SaveAddMultiSelectiones)}
+        onClick={(e) => handleSubmit(e, formRef, edit, setEdit)}
       >
         Save
       </button>

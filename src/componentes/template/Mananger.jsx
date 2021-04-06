@@ -2,7 +2,7 @@ import { Form } from "../containers/Form";
 import { Table } from "../containers/Table";
 
 export const ManangerTemplate = ({ title, form, table }) => {
-  const { handleSubmit, SaveAddMultiSelectiones, edit, setEdit, inputs } = form;
+  const { handleSubmit, edit, setEdit, inputs } = form;
   const { items, hideItems, handleEdit, handleDelete } = table;
   return (
     <div className="card mt-3">
@@ -13,7 +13,6 @@ export const ManangerTemplate = ({ title, form, table }) => {
           edit={edit}
           setEdit={setEdit}
           handleSubmit={handleSubmit}
-          SaveAddMultiSelectiones={SaveAddMultiSelectiones}
         />
         <Table
           items={items}
