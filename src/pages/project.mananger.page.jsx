@@ -33,7 +33,13 @@ const get = {
   query: GET_PROJECTS_TEST,
   variables: {},
 };
-
+const hideItems = [
+  "description",
+  "titleSeo",
+  "topics",
+  "__typename",
+  "links",
+]
 export const ProjectManangerPage = () => {
   const getTopics = useQuery(GET_TOPICS_SELECT);
   const getLinks = useQuery(GET_LINKS_SELECT);
@@ -101,7 +107,7 @@ console.log("projects",data.projects);
         handleSubmit,
         SaveAddMultiSelectiones,
       }}
-      table={{ items: [...data.projects], handleEdit, handleDelete }}
+      table={{ items: [...data.projects], hideItems, handleEdit, handleDelete }}
     />
   );
 };
