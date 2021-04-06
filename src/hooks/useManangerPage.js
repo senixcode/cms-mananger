@@ -8,7 +8,7 @@ export const useManangerPage = (
   saved,
   updated,
   deleted,
-  editMultiSelectiones
+  multiselect
 ) => {
   const { query, variables } = get;
   const { error, loading, data } = useQuery(query, { variables });
@@ -21,26 +21,29 @@ export const useManangerPage = (
     data: {},
   });
   // saved and update dynamic
-  const handleSubmit = (e, formRef, edit, setEdit, f) => {
+  const handleSubmit = (e, formRef, edit, setEdit) => {
     e.preventDefault();
     let input = {};
     if (edit.state) form = [{ name: "id" }, ...form];
     // parse and get values inputs -> parameters for sending
     forEachFormRef(form, formRef, (key, value) => (input[key] = value));
     if (edit.state) input.id = parseInt(input.id);
-    if (f) input = { ...input, ...f() };
-    console.log("input", input);
+    //  console.log("input", input);
+    if (multiselect && multiselect.add)
+      input = { ...input, ...multiselect.add() };
+    // console.log("input", input);
     input = { variables: { input } };
     edit.state ? Updated(input) : Saved(input);
     // reset edit
     setEdit({ state: false, data: {} });
     //clear form
+    if (multiselect && multiselect.clear) multiselect.clear();
     formRef.current.reset();
   };
 
   const handleEdit = (row) => {
     const { __typename, ...data } = row;
-    if (editMultiSelectiones) editMultiSelectiones(row);
+    if (multiselect && multiselect.edit) multiselect.edit(row);
     setEdit({
       state: true,
       data,
