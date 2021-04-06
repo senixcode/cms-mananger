@@ -8,10 +8,7 @@ import {
   UPDATE_PROJECT,
 } from "../graphql/mutation/projectMutation";
 import { Loading } from "../componentes/atoms/Loading";
-import { useQuery } from "@apollo/client";
-import { GET_TOPICS_SELECT } from "../graphql/querys/topicsQuery";
-import { useState } from "react";
-import { GET_LINKS_SELECT } from "../graphql/querys/linksQuerys";
+import { useProject } from "../hooks/useProject";
 
 const title = "Project Mananger";
 
@@ -33,16 +30,11 @@ const get = {
   query: GET_PROJECTS_TEST,
   variables: {},
 };
+
 const hideItems = ["description", "titleSeo", "topics", "__typename", "links"];
+
 export const ProjectManangerPage = () => {
-  const getTopics = useQuery(GET_TOPICS_SELECT);
-  const getLinks = useQuery(GET_LINKS_SELECT);
-  const [selectedTopicValue, setSelectedTopicValue] = useState([]);
-  const [selectedLinkValue, setSelectedLinkValue] = useState([]);
-  const editMultiSelectiones = (row) => {
-    setSelectedTopicValue(JSON.parse(row.topics));
-    setSelectedLinkValue(JSON.parse(row.links));
-  };
+  const { selectTopic, selectLink, multiselect } = useProject();
 
   const {
     error,
@@ -59,34 +51,8 @@ export const ProjectManangerPage = () => {
     ADD_PROJECT,
     UPDATE_PROJECT,
     DELETE_PROJECT,
-    editMultiSelectiones
+    multiselect
   );
-  const selectTopic = !getTopics.loading &&
-    !getTopics.error && {
-      type: types.MULTISELEC,
-      options: getTopics.data.topics,
-      name: "topics",
-      state: {
-        selectedValue: selectedTopicValue,
-        setSelectedValue: setSelectedTopicValue,
-      },
-    };
-
-  const selectLink = !getLinks.loading &&
-    !getLinks.error && {
-      type: types.MULTISELEC,
-      options: getLinks.data.links,
-      name: "links",
-      state: {
-        selectedValue: selectedLinkValue,
-        setSelectedValue: setSelectedLinkValue,
-      },
-    };
-
-  const SaveAddMultiSelectiones = () => ({
-    topics: JSON.stringify(selectedTopicValue),
-    links: JSON.stringify(selectedLinkValue),
-  });
 
   if (error) return <p>Error get project graphql</p>;
   if (loading) return <Loading />;
@@ -98,7 +64,6 @@ export const ProjectManangerPage = () => {
         edit,
         setEdit,
         handleSubmit,
-        SaveAddMultiSelectiones,
       }}
       table={{ items: [...data.projects], hideItems, handleEdit, handleDelete }}
     />
