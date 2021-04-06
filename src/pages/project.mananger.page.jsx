@@ -96,7 +96,6 @@ export const ProjectManangerPage = () => {
 
   if (error) return <p>Error get project graphql</p>;
   if (loading) return <Loading />;
-console.log("projects",data.projects);
   return (
     <ManangerTemplate
       title={title}
