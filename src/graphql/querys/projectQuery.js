@@ -17,6 +17,8 @@ export const GET_PROJECTS_TEST = gql`
       titleSeo
       summary
       description
+      topics
+      links
       language
     }
   }
