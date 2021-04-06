@@ -3,7 +3,6 @@ import { HomePage } from "./pages/home.page";
 import { LinkManangerPage } from "./pages/link.mananger.page";
 import { ProjectManangerPage } from "./pages/project.mananger.page";
 import { RouteManangerPage } from "./pages/route.mananger.page";
-import { TestPage } from "./pages/test.page";
 import { TopicManangerPage } from "./pages/topic.mananger.page";
 
 export const routesPages = [
@@ -36,10 +35,5 @@ export const routesPages = [
         name:"Route",
         path:"/mananger-route",
         component:RouteManangerPage,
-    },
-    {
-        name:"Test",
-        path:"/mananger-test",
-        component:TestPage,
     },
 ]
