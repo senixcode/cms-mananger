@@ -2,7 +2,14 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { forEachFormRef } from "../componentes/containers/Form";
 // mananger form, table and actions crud
-export const useManangerPage = (form, get, saved, updated, deleted) => {
+export const useManangerPage = (
+  form,
+  get,
+  saved,
+  updated,
+  deleted,
+  editMultiSelectiones
+) => {
   const { query, variables } = get;
   const { error, loading, data } = useQuery(query, { variables });
   const optionsRefresh = OptionsRefresh(query, variables);
@@ -14,13 +21,15 @@ export const useManangerPage = (form, get, saved, updated, deleted) => {
     data: {},
   });
   // saved and update dynamic
-  const handleSubmit = (e, formRef, edit, setEdit) => {
+  const handleSubmit = (e, formRef, edit, setEdit, f) => {
     e.preventDefault();
     let input = {};
     if (edit.state) form = [{ name: "id" }, ...form];
     // parse and get values inputs -> parameters for sending
     forEachFormRef(form, formRef, (key, value) => (input[key] = value));
     if (edit.state) input.id = parseInt(input.id);
+    if (f) input = { ...input, ...f() };
+    console.log("input", input);
     input = { variables: { input } };
     edit.state ? Updated(input) : Saved(input);
     // reset edit
@@ -31,6 +40,7 @@ export const useManangerPage = (form, get, saved, updated, deleted) => {
 
   const handleEdit = (row) => {
     const { __typename, ...data } = row;
+    if (editMultiSelectiones) editMultiSelectiones(row);
     setEdit({
       state: true,
       data,
