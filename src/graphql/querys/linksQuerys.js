@@ -6,6 +6,7 @@ export const GET_LINKS = gql`
       name
       href
       icon
+      category
     }
   }
 `;
@@ -13,7 +14,7 @@ export const GET_LINKS_SELECT = gql`
   {
     links {
       value: id
-      label: href
+      label: hrefCategory
     }
   }
 `;

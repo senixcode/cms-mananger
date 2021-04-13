@@ -13,6 +13,15 @@ const form = [
   { type: types.TEXT, name: "name" },
   { type: types.TEXT, name: "href" },
   { type: types.TEXT, name: "icon" },
+    {
+    type: types.SELECT,
+    name: "category",
+    options: [
+      { value: "VIDEO", name: "video" },
+      { value: "IMAGE", name: "image" },
+      { value: "ICON", name: "icon" },
+    ],
+  },
 ];
 const get = {
   query: GET_LINKS,
